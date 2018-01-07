@@ -1,0 +1,36 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using WebApplication2MVCAuthO.Models
+
+@model ApplicationUser
+
+@inject UserManager<ApplicationUser> UserManager
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="tabs_box" width="100%">
+    <ul class="tabs_menu">
+        <li width="50%"><a href="#tab1" class="active">Вкладка 1</a></li>
+        <li width="50%"><a href="#tab2">Вкладка 2</a></li>
+    </ul>
+    <div class="tab" id="tab1">
+        <p>Контент первой вкладки…</p>
+        <label asp-for="PhoneNumber"></label>
+        <p>@Model?.PhoneNumber</p> <a class="btn btn-info" asp-action="UserPhone" asp-route-returnUrl="@ViewBag.returnUrl">
+            Изменить номер
+        </a>
+        
+        <a class="btn btn-info" asp-action="clientRequest" asp-route-returnUrl="@ViewBag.returnUrl">
+            Искать машину
+        </a>
+
+        
+
+    </div>
+    <div class="tab" id="tab2">
+        <p>Контент второй вкладки…</p>
+    </div>
+</div>
+
+

@@ -1,0 +1,19 @@
+.gb_ab {
+    background-size: 32px 32px;
+    border-radius: 50%;
+    display: block;
+    margin: -1px;
+    overflow: hidden;
+    position: relative;
+    height: 32px;
+    width: 32px;
+    z-index: 0;
+}
+
+.gbii {
+    background-image: url(https://lh3.googleusercontent.com/-ULIRe8dnjFs/AAAAAAAAAAI/AAAAAAAAAAA/AA6ZPT431G7Wltgcfy29Etvl_4NyMalPBA/s32-c-mo/photo.jpg);
+}
+
+.gb_ab:hover, .gb_ab:focus {
+    box-shadow: 0px 1px 0px rgba(0,0,0,0.15);
+}

@@ -1,0 +1,84 @@
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+
+/* Wrapping element */
+/* Set some basic padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Carousel */
+.carousel-caption p {
+    font-size: 20px;
+    line-height: 1.4;
+}
+
+/* Make .svg files in the carousel display properly in older browsers */
+.carousel-inner .item img[src$=".svg"] {
+    width: 100%;
+}
+
+/* QR code generator */
+#qrCode {
+    margin: 15px;
+}
+
+/* Hide/rearrange for smaller screens */
+@media screen and (max-width: 767px) {
+    /* Hide captions */
+    .carousel-caption {
+        display: none;
+    }
+}
+
+
+/*---------------------------------------------*/
+
+.tabs_box {
+    /* width: 550px;*/
+    background: #fff;
+    position: absolute;
+    top: 100px;
+    /*left: 50%;*/
+    margin-left: -80px;
+    margin-right: 20px;
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.5);
+}
+#tab2, #tab3 {
+    display: none;
+}
+.tab {
+    padding: 0 10px;
+}
+.tabs_menu {
+    display: table-row;
+}
+.tabs_menu li {
+    display: table-cell;
+    width: auto;
+}
+.tabs_menu li a {
+    display: table-cell;
+    width: 2000px;
+    text-align: center;
+    text-decoration: none;
+    background: #f8f8f8;
+    color: #292929;
+    border-bottom: 1px solid #ccc;
+    border-left: 1px solid #ccc;
+    padding: 10px 0;
+}
+.tabs_menu li:first-child a {
+    border-left: 0;
+}
+.tabs_menu .active {
+    background: #5f84c1;
+    color: #fff;
+}
+
+.phone {
+    width:auto
+}
