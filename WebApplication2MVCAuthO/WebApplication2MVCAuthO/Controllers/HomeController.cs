@@ -57,7 +57,9 @@ namespace WebApplication2MVCAuthO.Controllers
             if (ModelState.IsValid)
             {
                 ApplicationUser user = await CurrentUser;
-                user.PhoneNumber = usrApplicationUser.PhoneNumber;
+                user.PhoneNumber = usrApplicationUser.PhoneNumber.Trim();
+                user.NormPhoneNum = usrApplicationUser.PhoneNumber.Replace("(", "").
+                  Replace(")","").Replace("-", "").Replace(".", "").Replace(" ", "");
                 await _userManager.UpdateAsync(user);
                 return RedirectToAction("Index");
             }
