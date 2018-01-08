@@ -11,9 +11,10 @@ using WebApplication2MVCAuthO.Data;
 namespace WebApplication2MVCAuthO.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180108195256_MyMigration6")]
+    partial class MyMigration6
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -162,6 +163,7 @@ namespace WebApplication2MVCAuthO.Data.Migrations
                     b.Property<string>("PasswordHash");
 
                     b.Property<string>("PhoneNumber")
+                        .IsRequired()
                         .HasMaxLength(250);
 
                     b.Property<bool>("PhoneNumberConfirmed");

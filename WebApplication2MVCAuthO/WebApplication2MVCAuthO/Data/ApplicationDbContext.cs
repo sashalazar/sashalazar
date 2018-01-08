@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using WebApplication2MVCAuthO.Models;
+using WebApplication2MVCAuthO.Models.HomeViewModels;
 
 namespace WebApplication2MVCAuthO.Data
 {
@@ -14,6 +15,8 @@ namespace WebApplication2MVCAuthO.Data
             : base(options)
         {
         }
+
+        public DbSet<ClientRequestModel> ClientRequests { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

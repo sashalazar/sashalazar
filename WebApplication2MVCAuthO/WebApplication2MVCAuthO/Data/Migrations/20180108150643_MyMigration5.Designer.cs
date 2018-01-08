@@ -11,9 +11,10 @@ using WebApplication2MVCAuthO.Data;
 namespace WebApplication2MVCAuthO.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180108150643_MyMigration5")]
+    partial class MyMigration5
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -150,9 +151,6 @@ namespace WebApplication2MVCAuthO.Data.Migrations
 
                     b.Property<DateTimeOffset?>("LockoutEnd");
 
-                    b.Property<string>("NormPhoneNum")
-                        .HasMaxLength(250);
-
                     b.Property<string>("NormalizedEmail")
                         .HasMaxLength(256);
 
@@ -162,7 +160,7 @@ namespace WebApplication2MVCAuthO.Data.Migrations
                     b.Property<string>("PasswordHash");
 
                     b.Property<string>("PhoneNumber")
-                        .HasMaxLength(250);
+                        .IsRequired();
 
                     b.Property<bool>("PhoneNumberConfirmed");
 
