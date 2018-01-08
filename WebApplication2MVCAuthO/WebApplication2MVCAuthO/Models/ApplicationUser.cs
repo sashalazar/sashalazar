@@ -17,11 +17,15 @@ namespace WebApplication2MVCAuthO.Models
         [MaxLength(250)]
         public string FullName { get; set; }
 
-        [Required(ErrorMessage = "Номер не может быть пустым")]
-        [Phone(ErrorMessage = "Не допустимый формат номера")]
+        //[Required(ErrorMessage = "Номер не может быть пустым")]
+        //[Phone(ErrorMessage = "Не допустимый формат номера")]
         [DataType(DataType.PhoneNumber)]
         [Display(Name = "Мой номер телефона:")]
-        //[RegularExpression(@"^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$", ErrorMessage = "Не допустимый формат номера")]
+        [RegularExpression(@"^(\+38)\(?(\d{3})\)?[-. ]?(\d{3})[-. ]?(\d{4})$", ErrorMessage = "Не допустимый формат номера")]
+        [MaxLength(250)]
         public override string PhoneNumber { get; set; }
+
+        [MaxLength(250)]
+        public string NormPhoneNum { get; set; }
     }
 }
