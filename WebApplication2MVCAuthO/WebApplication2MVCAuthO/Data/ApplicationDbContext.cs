@@ -25,5 +25,7 @@ namespace WebApplication2MVCAuthO.Data
             // For example, you can rename the ASP.NET Identity table names and more.
             // Add your customizations after calling base.OnModelCreating(builder);
         }
+
+        public DbSet<WebApplication2MVCAuthO.Models.HomeViewModels.DriverLocationModel> DriverLocationModel { get; set; }
     }
 }

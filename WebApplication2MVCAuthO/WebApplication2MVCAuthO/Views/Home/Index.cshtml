@@ -21,11 +21,21 @@
             Изменить номер
         </a>
         
-        <a class="btn btn-info" asp-action="clientRequest" asp-route-returnUrl="@ViewBag.returnUrl">
-            Искать машину
-        </a>
+        @*<form id="form0" asp-controller="api" asp-action="ClientRequest" method="post" novalidate="novalidate" >*@
+        <form id="form_add_client_request" method="post" novalidate="novalidate">
+            <div class="form-group">
+                <input name="ClientRequestModel.Latitude" id="ClientRequestModel.Latitude" type="hidden" value="1111111" />
+                <input name="ClientRequestModel.Longitude" id="ClientRequestModel.Longitude" type="hidden" value="2222222" />
+                <input name="ClientRequestModel.UserId" id="ClientRequestModel.UserId" type="hidden" value="@Model.Id" />
+            </div>
+            <button type="submit" class="btn btn-info btn-default">Искать машину</button>
+        </form>
 
-        
+        @*<a class="btn btn-info" asp-controller="" asp-action="ClientRequest" asp-route-returnUrl="@ViewBag.returnUrl">
+            Искать машину
+        </a>*@
+
+
 
     </div>
     <div class="tab" id="tab2">

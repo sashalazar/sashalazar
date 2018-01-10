@@ -5,11 +5,13 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using WebApplication2MVCAuthO.Data;
 using WebApplication2MVCAuthO.Models;
+using WebApplication2MVCAuthO.Models.HomeViewModels;
 using WebApplication2MVCAuthO.Services;
 
 namespace WebApplication2MVCAuthO.Controllers
@@ -41,6 +43,23 @@ namespace WebApplication2MVCAuthO.Controllers
         {
             //var curUser = CurrentUser;
             return View(await CurrentUser);
+        }
+
+        [Authorize]
+        public async Task<IActionResult> DriverLocations([FromRoute] string id, ClientRequestModel clientRequestModel)
+        {
+            if (string.IsNullOrEmpty(id))
+            {
+                /////////////////////////////////////////
+                if (!string.IsNullOrEmpty(clientRequestModel.Id))
+                {
+                    HttpContext.Session.SetString("ClientRequestModelId", clientRequestModel.Id);
+                }
+                /////////////////////////////////////////
+                return View((object)id);
+            }
+            else
+                return Error();
         }
 
         [Authorize]
