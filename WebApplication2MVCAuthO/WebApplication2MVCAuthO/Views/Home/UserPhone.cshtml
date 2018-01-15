@@ -11,33 +11,21 @@
 }
 
 <div class="tabs_box" width="100%">
-    <ul class="tabs_menu">
-        <li width="50%"><a href="#tab1" class="active">Я - пассажир</a></li>
-        <li width="50%"><a href="#tab2">Я - водитель</a></li>
-    </ul>
     <div class="tab" id="tab1">
+        <p>
+            Редактировать номер телефона
+        </p>
         <form asp-route-returnurl="@ViewData["ReturnUrl"]" method="post">
-            <p>Контент первой вкладки…</p>
-            @*<div asp-validation-summary="All" class="text-danger"></div>*@
-            
             <div class="form-group">
                 <label asp-for="PhoneNumber"></label> +38(0xx)xxx-xxxx
                 <input asp-for="PhoneNumber" class="form-control phone"/>
                 <span asp-validation-for="PhoneNumber" class="text-danger"></span>
             </div>
-            @*<label asp-for="PhoneNumber"></label>
-            <input asp-for="PhoneNumber" class="form-control" value="@Model?.PhoneNumber"/>
-            <span asp-validation-for="PhoneNumber" class="text-danger"></span>*@
             <a class="btn btn-info" asp-action="Index" asp-route-returnUrl="@ViewBag.returnUrl">
-                Назад
+                Отмена
             </a>
-            <button type="submit" class="btn btn-info btn-default">Подтверждаю</button>
-
+            <button type="submit" class="btn btn-info btn-default">Сохранить</button>
         </form>
-
-</div>
-    <div class="tab" id="tab2">
-        <p>Контент второй вкладки…</p>
     </div>
 </div>
 

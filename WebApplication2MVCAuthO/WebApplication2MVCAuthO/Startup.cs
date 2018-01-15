@@ -16,6 +16,7 @@ namespace WebApplication2MVCAuthO
 {
     public class Startup
     {
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -29,12 +30,16 @@ namespace WebApplication2MVCAuthO
             services.AddAuthentication().AddGoogle(opts => {
                 opts.ClientId = "317200886429-asifuqhfv3p3m4i0n4ts04o33gniq8ij.apps.googleusercontent.com";
                 opts.ClientSecret = "zZ1bjfvlfyP-MSMeegopUPa1";
+                opts.SaveTokens = true;
             });
 
             services.AddAuthentication().AddFacebook(facebookOptions =>
             {
                 facebookOptions.AppId = "979816048838871"; //Configuration["Authentication:Facebook:AppId"];
                 facebookOptions.AppSecret = "69385dfd239e61a0776bdfae32bf1148"; //Configuration["Authentication:Facebook:AppSecret"];
+                facebookOptions.SaveTokens = true;
+                
+
             });
 
             services.AddDbContext<ApplicationDbContext>(options =>
@@ -46,8 +51,15 @@ namespace WebApplication2MVCAuthO
 
             // Add application services.
             services.AddTransient<IEmailSender, EmailSender>();
+            services.AddSingleton<IConfiguration>(Configuration);
 
-            services.AddMvc();
+
+            services.AddDistributedMemoryCache();
+            services.AddSession();
+
+            services.AddMvc()
+                .AddSessionStateTempDataProvider();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -64,6 +76,8 @@ namespace WebApplication2MVCAuthO
                 app.UseExceptionHandler("/Home/Error");
             }
 
+            app.UseSession();
+
             app.UseStaticFiles();
 
             app.UseAuthentication();
@@ -74,6 +88,20 @@ namespace WebApplication2MVCAuthO
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
+
+            using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
+            {
+                var context = serviceScope.ServiceProvider.GetService<ApplicationDbContext>();
+                DataSeeder.SeedDriverLocations(context).Wait();
+            }
+
+            var builder = new ConfigurationBuilder()
+                .SetBasePath(env.ContentRootPath)
+                .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+                .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
+                .AddEnvironmentVariables();
+            //_config = builder.Build();
+
         }
     }
 }

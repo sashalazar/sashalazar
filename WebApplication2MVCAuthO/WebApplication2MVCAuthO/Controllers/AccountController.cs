@@ -280,6 +280,8 @@ namespace WebApplication2MVCAuthO.Controllers
             var result = await _signInManager.ExternalLoginSignInAsync(info.LoginProvider, info.ProviderKey, isPersistent: true, bypassTwoFactor: true);
             if (result.Succeeded)
             {
+                await _signInManager.UpdateExternalAuthenticationTokensAsync(info);
+
                 _logger.LogInformation("User logged in with {Name} provider.", info.LoginProvider);
                 return RedirectToLocal(returnUrl);
             }
@@ -360,7 +362,8 @@ namespace WebApplication2MVCAuthO.Controllers
                     UserName = model.Email,
                     Email = model.Email,
                     ProfilePhoto = model.Photo,
-                    FullName = model.Name
+                    FullName = model.Name,
+                    RegDate = new DateTime()
                 };
                 var result = await _userManager.CreateAsync(user);
                 if (result.Succeeded)

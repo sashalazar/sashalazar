@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using WebApplication2MVCAuthO.Models;
 using WebApplication2MVCAuthO.Models.HomeViewModels;
+using WebApplication2MVCAuthO.Services;
 
 namespace WebApplication2MVCAuthO.Data
 {
@@ -17,6 +18,9 @@ namespace WebApplication2MVCAuthO.Data
         }
 
         public DbSet<ClientRequestModel> ClientRequests { get; set; }
+        public DbSet<DriverLocationModel> DriverLocations { get; set; }
+        public DbSet<OrderModel> Orders { get; set; }
+        public DbSet<DriverModel> Drivers { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -25,7 +29,6 @@ namespace WebApplication2MVCAuthO.Data
             // For example, you can rename the ASP.NET Identity table names and more.
             // Add your customizations after calling base.OnModelCreating(builder);
         }
-
-        public DbSet<WebApplication2MVCAuthO.Models.HomeViewModels.DriverLocationModel> DriverLocationModel { get; set; }
+        
     }
 }

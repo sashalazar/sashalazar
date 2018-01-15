@@ -1,0 +1,72 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using Microsoft.EntityFrameworkCore
+@using WebApplication2MVCAuthO.Data
+@using WebApplication2MVCAuthO.Models
+@using WebApplication2MVCAuthO.Models.HomeViewModels
+
+@model DriverModel
+
+@inject UserManager<ApplicationUser> UserManager
+@*@inject ApplicationDbContext DbContext*@
+
+@{
+    ViewData["Title"] = "Edit Info";
+
+    //var UserId = UserManager.FindByNameAsync(User.Identity.Name).Result?.Id;
+    //DriverModel Driver = DbContext.Drivers.Include(m => m.User).FirstOrDefault(m => m.User.Id == UserId);
+}
+
+<br/>
+<div>
+    <p>
+        Вы выбрали режим - Водитель. <br />
+        Для регистрации в качестве пассажира, <br />
+
+        <a class=".link1" style="padding-right: 8px" asp-action="Index" asp-route-mode="Client" asp-route-returnUrl="@ViewBag.returnUrl">
+            перейдите на домашнюю страницу
+        </a>
+    </p>
+    <form asp-route-returnurl="@ViewData["ReturnUrl"]" method="post">
+        <div class="form-group">
+            <label asp-for="@Model.City"></label>
+            <input asp-for="@Model.City" class="form-control" />
+            <span asp-validation-for="@Model.City" class="text-danger"></span>
+            <br />
+            <label asp-for="CarModel"></label>
+            <input asp-for="CarModel" class="form-control" />
+            <span asp-validation-for="CarModel" class="text-danger"></span>
+            <br />
+            <label asp-for="CarType"></label>
+            <input asp-for="CarType" class="form-control" />
+            <span asp-validation-for="CarType" class="text-danger"></span>
+            <br />
+            <label asp-for="CarYearProd"></label>
+            <input asp-for="CarYearProd" class="form-control" />
+            <span asp-validation-for="CarYearProd" class="text-danger"></span>
+            <br />
+            <label asp-for="CarColor"></label>
+            <input asp-for="CarColor" class="form-control" />
+            <span asp-validation-for="CarColor" class="text-danger"></span>
+            <br />
+            <label asp-for="CarNum"></label>
+            <input asp-for="CarNum" class="form-control" />
+            <span asp-validation-for="CarNum" class="text-danger"></span>
+            <br />
+            <label asp-for="DrLicense"></label>
+            <input asp-for="DrLicense" class="form-control" />
+            <span asp-validation-for="DrLicense" class="text-danger"></span>
+            <br />
+            <label asp-for="DrLFromDate"></label>
+            <input asp-for="DrLFromDate" class="form-control" />
+            <span asp-validation-for="DrLFromDate" class="text-danger"></span>
+            <br />
+            <a class="btn btn-info btn-default" style="padding-right: 8px" asp-action="Index" asp-route-returnUrl="@ViewBag.returnUrl">
+                Отмена
+            </a>
+            <button type="submit" class="btn btn-info btn-default">Сохранить</button>
+        </div>
+    </form>
+        
+</div>
+
+

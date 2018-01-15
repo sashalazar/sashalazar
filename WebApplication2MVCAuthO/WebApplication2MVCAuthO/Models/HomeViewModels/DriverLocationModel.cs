@@ -7,33 +7,30 @@ using System.Threading.Tasks;
 
 namespace WebApplication2MVCAuthO.Models.HomeViewModels
 {
-    public class ClientRequestModel
+    public class DriverLocationModel
     {
         [MaxLength(256)]
-        [Column(Order = 0)]
         public string Id { get; set; }
 
-        [Column(Order = 1)]
         public ApplicationUser User { get; set; }
 
         [MaxLength(256)]
-        [Column(Order = 2)]
         public string Latitude { get; set; }
 
         [MaxLength(256)]
-        [Column(Order = 3)]
         public string Longitude { get; set; }
 
-        [MaxLength(40)]
-        [Column(Order = 4)]
-        public string Status { get; set; }
-
+        //[DatabaseGenerated(DatabaseGeneratedOption.Computed)]
         [DataType(DataType.DateTime)]
-        [Column(Order = 5)]
         public DateTime InsDate { get; set; }
 
         [DataType(DataType.DateTime)]
-        [Column(Order = 6)]
         public DateTime UpdDate { get; set; }
+
+        [MaxLength(40)]
+        public string Status { get; set; }
+
+        [NotMapped]
+        public double Distance { get; set; }
     }
 }

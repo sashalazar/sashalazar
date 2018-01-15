@@ -43,9 +43,9 @@
     position: absolute;
     top: 100px;
     /*left: 50%;*/
-    margin-left: -80px;
-    margin-right: 20px;
-    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.5);
+    margin-left: -15px;
+    margin-right: -15px;
+    /*box-shadow: 0 3px 5px rgba(0, 0, 0, 0.5);*/
 }
 #tab2, #tab3 {
     display: none;
@@ -82,3 +82,5 @@
 .phone {
     width:auto
 }
+
+.link1 {text-decoration: underline}

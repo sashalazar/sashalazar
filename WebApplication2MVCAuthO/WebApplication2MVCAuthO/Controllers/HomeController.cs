@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using WebApplication2MVCAuthO.Data;
 using WebApplication2MVCAuthO.Models;
@@ -22,6 +23,7 @@ namespace WebApplication2MVCAuthO.Controllers
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly IEmailSender _emailSender;
         private readonly ILogger _logger;
+        private readonly ApplicationDbContext _context;
 
         private Task<ApplicationUser> CurrentUser =>
             _userManager.FindByNameAsync(HttpContext.User.Identity.Name);
@@ -29,22 +31,33 @@ namespace WebApplication2MVCAuthO.Controllers
         public HomeController(UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
             IEmailSender emailSender,
-            ILogger<AccountController> logger)
+            ILogger<AccountController> logger,
+            ApplicationDbContext context)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _emailSender = emailSender;
             _logger = logger;
+            _context = context;
         }
 
         [Authorize]
         [HttpGet]
-        public async Task<IActionResult> Index(string returnUrl = null)
+        public async Task<IActionResult> Index([FromQuery] string mode = null, string returnUrl = null)
         {
-            //var curUser = CurrentUser;
-            return View(await CurrentUser);
+            var appUser = await CurrentUser;
+            DriverModel driver = _context.Drivers.Include(m => m.User).FirstOrDefault(m => m.User.Id == appUser.Id);
+
+            if (string.IsNullOrEmpty(appUser.PhoneNumber))
+                return RedirectToAction("UserPhone");
+
+            if(mode == "Driver" && (string.IsNullOrEmpty(driver?.CarModel) || string.IsNullOrEmpty(driver?.CarNum)))
+                return RedirectToAction("EditInfo");
+
+            return View(appUser);
         }
 
+        //todo remove method
         [Authorize]
         public async Task<IActionResult> DriverLocations([FromRoute] string id, ClientRequestModel clientRequestModel)
         {
@@ -60,6 +73,45 @@ namespace WebApplication2MVCAuthO.Controllers
             }
             else
                 return Error();
+        }
+
+        [Authorize]
+        public async Task<IActionResult> EditInfo()
+        {
+            var appUser = await CurrentUser;
+            DriverModel driver = _context.Drivers.Include(m => m.User).FirstOrDefault(m => m.User.Id == appUser.Id);
+            if (driver == null)
+            {
+                driver = new DriverModel();
+            }
+            return View(driver);
+        }
+
+        [Authorize]
+        [HttpPost]
+        public async Task<IActionResult> EditInfo(
+            [Required] DriverModel driverModel)
+        {
+            if (ModelState.IsValid)
+            {
+                driverModel.User = await CurrentUser;
+
+                if (string.IsNullOrEmpty(driverModel.Id))
+                {      
+                    await _context.Drivers.AddAsync(driverModel);
+                }
+                else
+                {
+                    var driver = _context.Drivers.Find(driverModel.Id);
+                    _context.Entry(driver).CurrentValues.SetValues(driverModel);
+                }
+
+                await _context.SaveChangesAsync();
+
+                return RedirectToAction("Index");
+            }
+
+            return View(driverModel);
         }
 
         [Authorize]

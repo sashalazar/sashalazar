@@ -27,5 +27,8 @@ namespace WebApplication2MVCAuthO.Models
 
         [MaxLength(250)]
         public string NormPhoneNum { get; set; }
+
+        [DataType(DataType.DateTime)]
+        public DateTime RegDate { get; set; }
     }
 }

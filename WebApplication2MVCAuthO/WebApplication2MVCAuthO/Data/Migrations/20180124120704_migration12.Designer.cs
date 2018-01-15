@@ -11,9 +11,10 @@ using WebApplication2MVCAuthO.Data;
 namespace WebApplication2MVCAuthO.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180124120704_migration12")]
+    partial class migration12
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -169,8 +170,6 @@ namespace WebApplication2MVCAuthO.Data.Migrations
                     b.Property<string>("ProfilePhoto")
                         .HasMaxLength(250);
 
-                    b.Property<DateTime>("RegDate");
-
                     b.Property<string>("SecurityStamp");
 
                     b.Property<bool>("TwoFactorEnabled");
@@ -233,9 +232,6 @@ namespace WebApplication2MVCAuthO.Data.Migrations
                     b.Property<string>("Longitude")
                         .HasMaxLength(256);
 
-                    b.Property<string>("Status")
-                        .HasMaxLength(40);
-
                     b.Property<DateTime>("UpdDate");
 
                     b.Property<string>("UserId");
@@ -245,74 +241,6 @@ namespace WebApplication2MVCAuthO.Data.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("DriverLocations");
-                });
-
-            modelBuilder.Entity("WebApplication2MVCAuthO.Models.HomeViewModels.DriverModel", b =>
-                {
-                    b.Property<string>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasMaxLength(256);
-
-                    b.Property<string>("AddServices")
-                        .HasMaxLength(456);
-
-                    b.Property<string>("CarColor")
-                        .HasMaxLength(50);
-
-                    b.Property<string>("CarModel")
-                        .HasMaxLength(100);
-
-                    b.Property<string>("CarNum")
-                        .HasMaxLength(50);
-
-                    b.Property<string>("CarType")
-                        .HasMaxLength(50);
-
-                    b.Property<string>("CarYearProd")
-                        .HasMaxLength(50);
-
-                    b.Property<string>("City")
-                        .HasMaxLength(100);
-
-                    b.Property<string>("DrLFromDate")
-                        .HasMaxLength(50);
-
-                    b.Property<string>("DrLicense")
-                        .HasMaxLength(50);
-
-                    b.Property<string>("UserId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Drivers");
-                });
-
-            modelBuilder.Entity("WebApplication2MVCAuthO.Models.HomeViewModels.OrderModel", b =>
-                {
-                    b.Property<string>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasMaxLength(256);
-
-                    b.Property<string>("ClientRequestId");
-
-                    b.Property<DateTime>("CreatDate");
-
-                    b.Property<string>("DriverLocationId");
-
-                    b.Property<string>("Status")
-                        .HasMaxLength(40);
-
-                    b.Property<DateTime>("UpdStatusDate");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ClientRequestId");
-
-                    b.HasIndex("DriverLocationId");
-
-                    b.ToTable("Orders");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -372,24 +300,6 @@ namespace WebApplication2MVCAuthO.Data.Migrations
                     b.HasOne("WebApplication2MVCAuthO.Models.ApplicationUser", "User")
                         .WithMany()
                         .HasForeignKey("UserId");
-                });
-
-            modelBuilder.Entity("WebApplication2MVCAuthO.Models.HomeViewModels.DriverModel", b =>
-                {
-                    b.HasOne("WebApplication2MVCAuthO.Models.ApplicationUser", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId");
-                });
-
-            modelBuilder.Entity("WebApplication2MVCAuthO.Models.HomeViewModels.OrderModel", b =>
-                {
-                    b.HasOne("WebApplication2MVCAuthO.Models.HomeViewModels.ClientRequestModel", "ClientRequest")
-                        .WithMany()
-                        .HasForeignKey("ClientRequestId");
-
-                    b.HasOne("WebApplication2MVCAuthO.Models.HomeViewModels.DriverLocationModel", "DriverLocation")
-                        .WithMany()
-                        .HasForeignKey("DriverLocationId");
                 });
 #pragma warning restore 612, 618
         }

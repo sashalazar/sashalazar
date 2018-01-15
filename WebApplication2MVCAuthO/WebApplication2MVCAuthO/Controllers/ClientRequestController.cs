@@ -72,10 +72,17 @@ namespace WebApplication2MVCAuthO.Controllers
                 return BadRequest();
             }
 
-            //clientRequestModel.User.Id = clientRequestModel.User.Id.Trim().ToUpper();
-            //_context.Entry(clientRequestModel.User).CurrentValues.SetValues(_context.Users.Find(clientRequestModel.User.Id));
+            // get object from db
+            var clientRequest = _context.ClientRequests.Find(id);
 
-            _context.Entry(clientRequestModel).State = EntityState.Modified;
+            //check status
+            if (clientRequest.Status != clientRequestModel.Status)
+            {
+                clientRequest.Status = clientRequestModel.Status;
+                clientRequest.UpdDate = DateTime.Now;
+            }
+
+            _context.Entry(clientRequest).State = EntityState.Modified;
 
             try
             {
@@ -112,6 +119,11 @@ namespace WebApplication2MVCAuthO.Controllers
             
             var user = _context.Users.Find(clientRequestModel.User.Id);
             _context.Entry(clientRequestModel.User).CurrentValues.SetValues(user);
+
+            // to do make enum Status
+            clientRequestModel.Status = "Open";
+            clientRequestModel.InsDate = DateTime.Now;
+            clientRequestModel.UpdDate = DateTime.Now;
 
             _context.ClientRequests.Add(clientRequestModel);
             await _context.SaveChangesAsync();

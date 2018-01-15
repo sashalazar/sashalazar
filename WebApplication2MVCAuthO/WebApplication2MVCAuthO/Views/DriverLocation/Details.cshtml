@@ -1,0 +1,84 @@
+﻿@using Microsoft.AspNetCore.Http
+@using Microsoft.EntityFrameworkCore
+@using WebApplication2MVCAuthO.Data
+@using WebApplication2MVCAuthO.Models.HomeViewModels
+
+@model WebApplication2MVCAuthO.Models.HomeViewModels.DriverLocationModel
+
+@inject IHttpContextAccessor HttpContextAccessor
+@inject ApplicationDbContext DbContext
+
+@{
+    ViewData["Title"] = "Details";
+    var clientRequestId = HttpContextAccessor.HttpContext.Session.GetString("ClientRequestModelId");
+    DriverModel driver = await DbContext.Drivers.Include(m => m.User)
+        .SingleOrDefaultAsync(m => m.User.Id == Model.User.Id);
+
+    if (string.IsNullOrEmpty(clientRequestId)) { HttpContextAccessor.HttpContext.Response.Redirect("Home/Error"); }
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>DriverLocationModel</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Latitude)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Latitude)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Longitude)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Longitude)
+        </dd>
+    </dl>
+</div>
+<div>
+    <h4>Driver Data</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        
+        <dt>
+            Город:
+        </dt>
+        <dd>
+            @driver?.City
+        </dd>
+        <dt>
+            Марка и модель:
+        </dt>
+        <dd>
+            @driver?.CarModel
+        </dd>
+
+    </dl>
+    <label>Город:</label>
+    <p>@driver?.City</p>
+    <label>Марка и модель:</label>
+    <p>@driver?.CarModel</p>
+    <label>Тип кузова:</label>
+    <p>@driver?.CarType</p>
+    <label>Год выпуска:</label>
+    <p>@driver?.CarYearProd</p>
+    <label>Цвет кузова:</label>
+    <p>@driver?.CarColor</p>
+    <label>Гос. номер:</label>
+    <p>@driver?.CarNum</p>
+    <label>Серия и номер вод. удостоверения:</label>
+    <p>@driver?.DrLicense</p>
+    <label>Водительский стаж:</label>
+    <p>@driver?.DrLFromDate</p>
+
+</div>
+<div>
+    @*<a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |*@
+    <a id="backToDrList" href="javascript:void(0)" class="btn btn-info btn-default" data-reqid="@clientRequestId" 
+       data-url="@Url.Action("Index", "DriverLocation")">Back to List</a>
+    
+    <a id="createOrder" href="javascript:void(0)" class="btn btn-info btn-default"
+       data-reqid="@clientRequestId" data-drlocid="@Model.Id" data-url="@Url.Action("Create", "Order")">Заказать</a>            
+</div>
