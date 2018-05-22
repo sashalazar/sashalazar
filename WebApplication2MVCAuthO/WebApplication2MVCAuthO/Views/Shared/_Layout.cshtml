@@ -1,13 +1,20 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="theme-color" content="#2196f3">
+    <meta http-equiv="Content-Security-Policy" content="default-src * 'self' 'unsafe-inline' 'unsafe-eval' data: gap:">
+
     <title>@ViewData["Title"] - WebApplication2MVCAuthO</title>
 
     <environment include="Development">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+        <link rel="stylesheet" href="~/lib/framework7/build/css/framework7.css" />
         <link rel="stylesheet" href="~/css/site.css" />
+        <link rel="stylesheet" href="~/lib/framework7/kitchen-sink/css/app.css" />
     </environment>
     <environment exclude="Development">
         <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/css/bootstrap.min.css"
@@ -17,42 +24,250 @@
     </environment>
 </head>
 <body>
-<nav class="navbar navbar-inverse navbar-fixed-top">
-    <div class="container">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">WebApplication2MVCAuthO</a>
-        </div>
-        <div class="navbar-collapse collapse">
-            <ul class="nav navbar-nav">
-                <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
-                <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
-                <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
-            </ul>
-            @await Html.PartialAsync("_LoginPartial")
+<!-- App root element -->
+<div id="app">
+
+    <!-- Statusbar overlay -->
+    <div class="statusbar"></div>
+
+    @*<div class="panel-backdrop" style=""></div>*@
+        
+    <div class="panel panel-left panel-cover" style="">
+        <div class="page">
+            <div class="page-content">
+                <div class="block-title">Left Panel</div>
+                <div class="block">
+                    <p>This is a left side panel. You can close it by clicking outsite or on this link: <a href="#" class="panel-close">close me</a>. You can put here anything, even another isolated view like in <a href="#" data-panel="right" class="panel-open">Right Panel</a></p>
+                </div>
+                <div class="block-title">Main View Navigation</div>
+                <div class="list links-list">
+                    <ul>
+                        <li>
+                            <a href="/accordion/" class="panel-close">Accordion</a>
+                        </li>
+                        <li>
+                            <a href="/action-sheet/" class="panel-close">Action Sheet</a>
+                        </li>
+                        <li>
+                            <a href="/badge/" class="panel-close">Badge</a>
+                        </li>
+                        <li>
+                            <a href="/buttons/" class="panel-close">Buttons</a>
+                        </li>
+                        <li>
+                            <a href="/cards/" class="panel-close">Cards</a>
+                        </li>
+                        <li>
+                            <a href="/checkbox/" class="panel-close">Checkbox</a>
+                        </li>
+                        <li>
+                            <a href="/chips/" class="panel-close">Chips/Tags</a>
+                        </li>
+                        <li>
+                            <a href="/contacts-list/" class="panel-close">Contacts List</a>
+                        </li>
+                        <li>
+                            <a href="/data-table/" class="panel-close">Data Table</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="block">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse faucibus mauris leo, eu bibendum neque congue non. Ut leo mauris, eleifend eu commodo a, egestas ac urna. Maecenas in lacus faucibus, viverra ipsum pulvinar, molestie arcu. Etiam lacinia venenatis dignissim. Suspendisse non nisl semper tellus malesuada suscipit eu et eros. Nulla eu enim quis quam elementum vulputate. Mauris ornare consequat nunc viverra pellentesque. Aenean semper eu massa sit amet aliquam. Integer et neque sed libero mollis elementum at vitae ligula. Vestibulum pharetra sed libero sed porttitor. Suspendisse a faucibus lectus.</p>
+                    <p>Duis ut mauris sollicitudin, venenatis nisi sed, luctus ligula. Phasellus blandit nisl ut lorem semper pharetra. Nullam tortor nibh, suscipit in consequat vel, feugiat sed quam. Nam risus libero, auctor vel tristique ac, malesuada ut ante. Sed molestie, est in eleifend sagittis, leo tortor ullamcorper erat, at vulputate eros sapien nec libero. Mauris dapibus laoreet nibh quis bibendum. Fusce dolor sem, suscipit in iaculis id, pharetra at urna. Pellentesque tempor congue massa quis faucibus. Vestibulum nunc eros, convallis blandit dui sit amet, gravida adipiscing libero.</p>
+                </div>
+            </div>
         </div>
     </div>
-</nav>
-<div class="container body-content">
-    <div id="body_content">
-        @RenderBody()
+
+    <!-- Your main view, should have "view-main" class -->
+    <div class="view view-main view-init ios-edges" id="main-view" data-url="/">
+
+        <!-- Initial Page, "data-name" contains page name -->
+        <div class="page page-with-subnavbar" tabbar-fixed>
+
+            <!-- Top Navbar -->
+            <div class="navbar">
+                <div class="navbar-inner sliding">
+                    @*<div class="left">aaa</div>
+                <div class="title sliding">Framework7</div>
+                <div class="right">bbb</div>*@
+
+                    <nav class="navbar navbar-inverse navbar-fixed-top" style="position:absolute">
+                        <div class="container">
+                            <div class="navbar-header">
+                                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"
+                                        style="background-color: #2196f3; border-color:#2196f3">
+                                    <span class="sr-only">Toggle navigation</span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                </button>
+
+                                <div class="left">
+                                    <a href="#" class="link icon-only panel-open" data-panel="left">
+                                        <i class="icon f7-icons ios-only">menu</i>
+                                        <i class="icon material-icons md-only">menu</i>
+                                    </a>
+                                    <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">WebApplication2MVCAuthO</a>
+                                </div>
+                            </div>
+                            <div class="navbar-collapse collapse">
+                                <ul class="nav navbar-nav">
+                                    <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
+                                    <li>
+                                        <a class="item-content item-link" asp-area="" asp-controller="Home" asp-action="About">
+                                            <div class="item-inner">
+                                                <div class="item-title">About</div>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
+                                </ul>
+                                @await Html.PartialAsync("_LoginPartial")
+                            </div>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+
+            @*<div class="searchbar-backdrop"></div>*@
+
+            <!-- Toolbar -->
+            
+            <div class="toolbar tabbar" style="top: 50px;">                
+                <div class="tabs_menu">
+                    <div class="toolbar-inner">
+                        <a href="#tab1" data-tab="#tab1" class="tab-link link">
+                            <span class="">About</span>
+                        </a> <a href="#tab2" data-tab="#tab2" class="tab-link link">
+                            <span class="">Services</span>
+                        </a><span class="tab-link-highlight" style="width: 33.3333%;">
+                        </span>
+                    </div>
+                </div>
+
+                @*<div class="toolbar-inner">
+                <div class="left">
+                    <a href="#" class="link icon-only panel-open" data-panel="left">
+                        <i class="icon f7-icons ios-only">menu</i>
+                        <i class="icon material-icons md-only">menu</i>
+                    </a>
+                </div>
+            </div>*@
+                @*<nav class="navbar navbar-inverse navbar-fixed-top">
+                <div class="container">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+
+                        <div class="left">
+                            <a href="#" class="link icon-only panel-open" data-panel="left">
+                                <i class="icon f7-icons ios-only">menu</i>
+                                <i class="icon material-icons md-only">menu</i>
+                            </a>
+                            <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">WebApplication2MVCAuthO</a>
+                        </div>
+                    </div>
+                    <div class="navbar-collapse collapse">
+                        <ul class="nav navbar-nav">
+                            <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
+                            <li>
+                                <a class="item-content item-link" asp-area="" asp-controller="Home" asp-action="About">
+                                    <div class="item-inner">
+                                        <div class="item-title">About</div>
+                                    </div>
+                                </a>
+                            </li>
+                            <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
+                        </ul>
+                        @await Html.PartialAsync("_LoginPartial")
+                    </div>
+                </div>
+            </nav>*@
+
+            </div>
+
+            <!-- Scrollable page content -->
+            <div class="page-content">
+                <div class="tabs">
+                    <div id="tab1" class="tab tab-active">
+                        <div>
+                            <div class="block-title">About Page</div>
+                            <div class="block" inner="">
+                                Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                                Distinctio est aliquam officiis quaerat placeat, cum explicabo magni
+                                soluta totam maxime autem minima accusamus eos suscipit dignissimos
+                                corporis modi voluptatum fugiat!
+                            </div>
+                        </div>
+                    </div>
+                    <div id="tab2" class="tab">
+                        <div>
+                            <div class="block-title">Services Page</div>
+                            <div class="block" inner="">
+                                Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                                Distinctio est aliquam officiis quaerat placeat, cum explicabo magni
+                                soluta totam maxime autem minima accusamus eos suscipit dignissimos
+                                corporis modi voluptatum fugiat!
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <p>Page content goes here</p>
+
+                @*<div class="list searchbar-hide-on-search">
+                <ul>
+                    <li>
+                        <a class="item-content item-link" href="/about/">
+                            <div class="item-media"><i class="icon icon-f7"></i>
+                            </div>
+                            <div class="item-inner">
+                                <div class="item-title">About Framework7</div>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+            </div>*@
+
+                @*<a class="item-content item-link" href="/accordion/">
+                <div class="item-media"><i class="icon icon-f7"></i>
+                </div>
+                <div class="item-inner">
+                    <div class="item-title">Accordion</div>
+                </div>
+            </a>*@
+
+                <div class="container body-content">
+                    <div id="body_content">
+                        @RenderBody()
+                    </div>
+                    <hr />
+                    <footer style="position: fixed; bottom: 0px">
+                        <p>&copy; 2017 - WebApplication2MVCAuthO</p>
+                    </footer>
+                </div>
+
+                <!-- -->
+                <a href="/about/">About app</a>
+            </div>
+        </div>
     </div>
-    <hr/>
-    <footer style="position: fixed; bottom: 0px">
-        <p>&copy; 2017 - WebApplication2MVCAuthO</p>
-    </footer>
-</div>
+</div>   
 
 <environment include="Development">
     <script src="~/lib/jquery/dist/jquery.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="~/lib/framework7/build/js/framework7.js"></script>
+    <script src="~/lib/framework7/kitchen-sink/js/routes.js"></script>
+    <script src="~/lib/framework7/kitchen-sink/js/app.js"></script>
+
+    <script src="~/js/site.js" asp-append-version="false"></script>
     <script src="~/js/jquery.mask.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
+
 </environment>
 <environment exclude="Development">
     <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.2.0.min.js"

@@ -1,9 +1,9 @@
 ﻿// Write your JavaScript code.
-$(document).ready(function () {
+jQuery(document).ready(function () {
     OnDocumentLoad();
 });
 
-$(document).ajaxComplete(function () {
+jQuery(document).ajaxComplete(function () {
     OnDocumentLoad();
 });
 
@@ -36,7 +36,7 @@ function clientGeoSuccess(position) {
         lng: position.coords.longitude
     };
     //if (pos.lat && pos.lng)     
-    $.ajax({
+    jQuery.ajax({
         url: "api/ClientRequest",
         contentType: "application/json",
         method: "POST",
@@ -57,7 +57,7 @@ function driverGeoSuccess(position) {
         lng: position.coords.longitude
     };
     //if (pos.lat && pos.lng)     
-    $.ajax({
+    jQuery.ajax({
         url: "DriverLocation/Create",
         contentType: "application/json",
         method: "POST",
@@ -70,7 +70,7 @@ function driverGeoSuccess(position) {
             //id2 = data.id;
             //latitude2 = data.latitude;
             //longitude2 = data.longitude;
-            $(div_body_content).html(data);
+            jQuery(div_body_content).html(data);
         }
     });
 }
@@ -112,31 +112,31 @@ function isUrl(param) {
 }
 
 function getDriverLocations(requestId) {
-    $.ajax({
+    jQuery.ajax({
         url: `DriverLocation/Index/${requestId}`,
         contentType: "text/plain",
         method: "GET",
         success: function (driverList) {
-            $(div_body_content).html(driverList);
+            jQuery(div_body_content).html(driverList);
 
         }
     });
 }
 
 function getAjaxRequestByUrl(param) {
-    $.ajax({
+    jQuery.ajax({
         url: param.url,
         data: "id=" + param.reqid,
         contentType: "text/plain",
         method: "GET",
         success: function (htmlResult) {
-            $(div_body_content).html(htmlResult);
+            jQuery(div_body_content).html(htmlResult);
 
         }
     });
 }
 
-$.urlParam = function (name) {
+jQuery.urlParam = function (name) {
     var res = null;
     var results = new RegExp('[\?&]' + name + '=([^&#]*)')
         .exec(window.location.href);
@@ -150,20 +150,21 @@ var ActiveMode = null;
 var UrlMode = null;
 
 function OnDocumentLoad() {
-    var tabsObj = $(".tabs_menu a");
-    UrlMode = $.urlParam("mode");
+    var tabsObj = jQuery(".tabs_menu a");
+    UrlMode = jQuery.urlParam("mode");
 
     tabsObj.click(function (e, data) {
         e.preventDefault();
         var tab;
-        $('.tabs_menu .active').removeClass('active');
+        jQuery('.tabs_menu .active').removeClass('active');
+        jQuery('.tabs_menu .tab-link-active').removeClass('tab-link-active');
         
         if (data) {
             tab = data;
             //let reqStr = ".tabs_menu li>a[href='" + data +"']";
             //$(reqStr).addClass('active');
         } else {
-            tab = $(this).attr('href');
+            tab = jQuery(this).attr('href');
             //$(this).addClass('active');
         }
 
@@ -181,14 +182,18 @@ function OnDocumentLoad() {
         }
 
         if (data) {
-            let reqStr = ".tabs_menu li>a[href='" + data + "']";
-            $(reqStr).addClass('active');
+            let reqStr = ".tabs_menu a[href='" + data + "']";
+            jQuery(reqStr).addClass('active');
+            jQuery(reqStr).addClass('tab-link-active');
+            // framework7 app
+            app.toolbar.setHighlight(jQuery(".toolbar.tabbar"));
         } else {
-            $(this).addClass('active');
+            jQuery(this).addClass('active');
+            jQuery(this).addClass('tab-link-active');
         }
 
-        $('.tab').not(tab).css({ 'display': 'none' });
-        $(tab).fadeIn(400);
+        jQuery('.tab').not(tab).css({ 'display': 'none' });
+        jQuery(tab).fadeIn(400);
     });
 
     if (tabsObj) {
@@ -212,7 +217,7 @@ function OnDocumentLoad() {
     //    $(this).val(strVal);
     //});
 
-    $(".phone").mask("+38(n00) 000-0000",
+    jQuery(".phone").mask("+38(n00) 000-0000",
         {
             translation:
             {
@@ -228,13 +233,13 @@ function OnDocumentLoad() {
     var longitude2;
     var userid2;
 
-    $("form#form_add_driver_location").submit(function (e) {
+    jQuery("form#form_add_driver_location").submit(function (e) {
         e.preventDefault();
         GetDriverGeoLocation(this);
     });
 
 
-    $("form#form_add_client_request").submit(function (e) {
+    jQuery("form#form_add_client_request").submit(function (e) {
         e.preventDefault();
         GetClientGeoLocation(this);
         //$.ajax({
@@ -255,7 +260,7 @@ function OnDocumentLoad() {
     //update client request status to Closed
     //and return to home index view
     function closeClientRequest(data) {
-        $.ajax({
+        jQuery.ajax({
             url: `/api/ClientRequest/${data.reqid}`,
             contentType: "application/json",
             method: "PUT",
@@ -271,9 +276,9 @@ function OnDocumentLoad() {
 
     //return from driver details page to the driver locations list
     //location - Views\DriverLocation\Details.cshtml
-    $('a#backToDrList').click(function (e) {              
-        var reqid = $(this).attr("data-reqid");
-        var url = $(this).attr("data-url");
+    jQuery('a#backToDrList').click(function (e) {              
+        var reqid = jQuery(this).attr("data-reqid");
+        var url = jQuery(this).attr("data-url");
         var param = { reqid: reqid, url: url };
         if (url) {
             getDriverLocationsTimeOut(param);
@@ -283,9 +288,9 @@ function OnDocumentLoad() {
 
     //cancel client request - return from driver list to client home page
     //location - Views\DriverLocation\Index.cshtml
-    $('a#cancelClientRequest').click(function (e) {
-        var reqid = $(this).attr("data-reqid");
-        var url = $(this).attr("data-url");
+    jQuery('a#cancelClientRequest').click(function (e) {
+        var reqid = jQuery(this).attr("data-reqid");
+        var url = jQuery(this).attr("data-url");
         var param = { reqid: reqid, url: url };
         if (url) {
             closeClientRequest(param);
@@ -294,9 +299,9 @@ function OnDocumentLoad() {
     });
 
     //cancel Driver Location - update driver location status to Closed
-    $('a#updateDriverLocation').click(function (e) {
-        var reqid = $(this).attr("data-reqid");
-        var status = $(this).attr("data-status");
+    jQuery('a#updateDriverLocation').click(function (e) {
+        var reqid = jQuery(this).attr("data-reqid");
+        var status = jQuery(this).attr("data-status");
         var param = { reqid: reqid, status: status };
         if (status) {
             if (status.indexOf("Closed") > -1) {
@@ -311,10 +316,10 @@ function OnDocumentLoad() {
 
     //create client order - returns confirmation + driver details 
     //location - Views\DriverLocation\Details.cshtml
-    $('a#createOrder').click(function (e) {
-        var reqid = $(this).attr("data-reqid");
-        var drlocid = $(this).attr("data-drlocid");
-        var url = $(this).attr("data-url");
+    jQuery('a#createOrder').click(function (e) {
+        var reqid = jQuery(this).attr("data-reqid");
+        var drlocid = jQuery(this).attr("data-drlocid");
+        var url = jQuery(this).attr("data-url");
         var param = { reqid: reqid, drlocid: drlocid, url: url };
         if (url) {
             CreateOrder(param);
@@ -328,7 +333,7 @@ function OnDocumentLoad() {
 }
 
 function CreateOrder(param) {
-    $.ajax({
+    jQuery.ajax({
         url: param.url,
         contentType: "application/json",
         method: "POST",
@@ -338,7 +343,7 @@ function CreateOrder(param) {
             Status: "Open"
         }),
         success: function (data) {
-            $(div_body_content).html(data);
+            jQuery(div_body_content).html(data);
         }
     });
 }
@@ -380,7 +385,7 @@ function updDriverGeoSuccess(position) {
 //update driver location status and other
 //and return to the same view
 function updateDriverLocation(data, pos) {
-    $.ajax({
+    jQuery.ajax({
         url: `DriverLocation/Edit/${data.reqid}`,
         contentType: "application/json",
         method: "POST",
@@ -391,7 +396,7 @@ function updateDriverLocation(data, pos) {
             Longitude: pos.lng
         }),
         success: function (htmlResult) {
-            $(div_body_content).html(htmlResult);
+            jQuery(div_body_content).html(htmlResult);
         },
         error: function (response, q, t) {
             var r = jQuery.parseJSON(response.responseText);
