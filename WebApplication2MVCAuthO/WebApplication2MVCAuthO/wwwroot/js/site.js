@@ -174,10 +174,10 @@ function OnDocumentLoad() {
             } else {
                 localStorage.setItem("ActiveMode", "Driver");
                 // todo -- Jquery Ajax instead of location.replace
-                if (!data && (!UrlMode || UrlMode !== "Driver")) {
-                    location.replace("/?mode=Driver");
-                    return;
-                }
+                //if (!data && (!UrlMode || UrlMode !== "Driver")) {
+                //    location.replace("/?mode=Driver");
+                //    return;
+                //}
             }
         }
 
@@ -185,12 +185,12 @@ function OnDocumentLoad() {
             let reqStr = ".tabs_menu a[href='" + data + "']";
             jQuery(reqStr).addClass('active');
             jQuery(reqStr).addClass('tab-link-active');
-            // framework7 app
-            app.toolbar.setHighlight(jQuery(".toolbar.tabbar"));
         } else {
             jQuery(this).addClass('active');
             jQuery(this).addClass('tab-link-active');
         }
+        // framework7 app
+        app.toolbar.setHighlight(jQuery(".toolbar.tabbar"));
 
         jQuery('.tab').not(tab).css({ 'display': 'none' });
         jQuery(tab).fadeIn(400);

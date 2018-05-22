@@ -1,6 +1,6 @@
 ﻿body {
-    padding-top: 50px;
-    padding-bottom: 20px;
+    /*padding-top: 50px;*/
+    /*padding-bottom: 20px;*/
 }
 
 /* Wrapping element */
@@ -40,7 +40,7 @@
 .tabs_box {
     /* width: 550px;*/
     background: #fff;
-    position: absolute;
+    /*position: absolute;*/
     top: 100px;
     /*left: 50%;*/
     margin-left: -15px;
@@ -75,7 +75,7 @@
     border-left: 0;
 }
 .tabs_menu .active {
-    background: #5f84c1;
+    /*background: #5f84c1;*/
     color: #fff;
 }
 
@@ -83,4 +83,10 @@
     width:auto
 }
 
-.link1 {text-decoration: underline}
+/*.link1 {text-decoration: underline}*/
+
+/**  styles for framework7.css changing **/
+
+.toolbar.tabbar {
+    /*top: 50px !important;*/
+}

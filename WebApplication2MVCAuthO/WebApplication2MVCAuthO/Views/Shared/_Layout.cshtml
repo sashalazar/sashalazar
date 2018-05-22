@@ -88,9 +88,6 @@
             <!-- Top Navbar -->
             <div class="navbar">
                 <div class="navbar-inner sliding">
-                    @*<div class="left">aaa</div>
-                <div class="title sliding">Framework7</div>
-                <div class="right">bbb</div>*@
 
                     <nav class="navbar navbar-inverse navbar-fixed-top" style="position:absolute">
                         <div class="container">
@@ -127,136 +124,47 @@
                             </div>
                         </div>
                     </nav>
+
                 </div>
             </div>
 
             @*<div class="searchbar-backdrop"></div>*@
 
             <!-- Toolbar -->
-            
-            <div class="toolbar tabbar" style="top: 50px;">                
+
+            <div class="toolbar tabbar" style="top: 50px;">
                 <div class="tabs_menu">
                     <div class="toolbar-inner">
-                        <a href="#tab1" data-tab="#tab1" class="tab-link link">
-                            <span class="">About</span>
-                        </a> <a href="#tab2" data-tab="#tab2" class="tab-link link">
-                            <span class="">Services</span>
-                        </a><span class="tab-link-highlight" style="width: 33.3333%;">
+                        <a href="#tab1" data-tab="#tab1" class="tab-link link" style="text-decoration:none">
+                            <span class="">Пассажир</span>
+                        </a>
+                        <a href="#tab2" data-tab="#tab2" class="tab-link link" style="text-decoration:none">
+                            <span class="">Водитель</span>
+                        </a>
+                        <span class="tab-link-highlight" style="width: 50%; transform: translate3d(0%, 0px, 0px);">
                         </span>
                     </div>
                 </div>
-
-                @*<div class="toolbar-inner">
-                <div class="left">
-                    <a href="#" class="link icon-only panel-open" data-panel="left">
-                        <i class="icon f7-icons ios-only">menu</i>
-                        <i class="icon material-icons md-only">menu</i>
-                    </a>
-                </div>
-            </div>*@
-                @*<nav class="navbar navbar-inverse navbar-fixed-top">
-                <div class="container">
-                    <div class="navbar-header">
-                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                            <span class="sr-only">Toggle navigation</span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                        </button>
-
-                        <div class="left">
-                            <a href="#" class="link icon-only panel-open" data-panel="left">
-                                <i class="icon f7-icons ios-only">menu</i>
-                                <i class="icon material-icons md-only">menu</i>
-                            </a>
-                            <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">WebApplication2MVCAuthO</a>
-                        </div>
-                    </div>
-                    <div class="navbar-collapse collapse">
-                        <ul class="nav navbar-nav">
-                            <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
-                            <li>
-                                <a class="item-content item-link" asp-area="" asp-controller="Home" asp-action="About">
-                                    <div class="item-inner">
-                                        <div class="item-title">About</div>
-                                    </div>
-                                </a>
-                            </li>
-                            <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
-                        </ul>
-                        @await Html.PartialAsync("_LoginPartial")
-                    </div>
-                </div>
-            </nav>*@
-
             </div>
 
             <!-- Scrollable page content -->
-            <div class="page-content">
-                <div class="tabs">
-                    <div id="tab1" class="tab tab-active">
-                        <div>
-                            <div class="block-title">About Page</div>
-                            <div class="block" inner="">
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                                Distinctio est aliquam officiis quaerat placeat, cum explicabo magni
-                                soluta totam maxime autem minima accusamus eos suscipit dignissimos
-                                corporis modi voluptatum fugiat!
-                            </div>
-                        </div>
-                    </div>
-                    <div id="tab2" class="tab">
-                        <div>
-                            <div class="block-title">Services Page</div>
-                            <div class="block" inner="">
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                                Distinctio est aliquam officiis quaerat placeat, cum explicabo magni
-                                soluta totam maxime autem minima accusamus eos suscipit dignissimos
-                                corporis modi voluptatum fugiat!
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <p>Page content goes here</p>
-
-                @*<div class="list searchbar-hide-on-search">
-                <ul>
-                    <li>
-                        <a class="item-content item-link" href="/about/">
-                            <div class="item-media"><i class="icon icon-f7"></i>
-                            </div>
-                            <div class="item-inner">
-                                <div class="item-title">About Framework7</div>
-                            </div>
-                        </a>
-                    </li>
-                </ul>
-            </div>*@
-
-                @*<a class="item-content item-link" href="/accordion/">
-                <div class="item-media"><i class="icon icon-f7"></i>
-                </div>
-                <div class="item-inner">
-                    <div class="item-title">Accordion</div>
-                </div>
-            </a>*@
-
+                    
+            <div class="page-content" style="padding-top: 75px;">
                 <div class="container body-content">
                     <div id="body_content">
+               
                         @RenderBody()
+                
                     </div>
-                    <hr />
-                    <footer style="position: fixed; bottom: 0px">
-                        <p>&copy; 2017 - WebApplication2MVCAuthO</p>
-                    </footer>
                 </div>
-
-                <!-- -->
-                <a href="/about/">About app</a>
             </div>
         </div>
+        <hr />
+        <footer style="position: fixed; bottom: 0px">
+            <p>&copy; 2017 - WebApplication2MVCAuthO</p>
+        </footer>
     </div>
-</div>   
+</div>
 
 <environment include="Development">
     <script src="~/lib/jquery/dist/jquery.js"></script>
