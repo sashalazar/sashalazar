@@ -145,6 +145,23 @@ jQuery.urlParam = function (name) {
     return  res || 0;
 }
 
+function getAjaxInfoPage(obj) {
+    //alert(jQuery(div_body_content).html());
+    //jQuery(div_body_content).html("<div>sasha</div>");
+    //alert(jQuery(div_body_content).html());
+
+    jQuery.ajax({
+        url: obj.url,
+        data: obj.param,
+        contentType: "text/plain",
+        method: "GET",
+        success: function (htmlResult) {
+            jQuery("div#tab2.tab div.block").html(htmlResult);
+
+        }
+    });
+}
+
 var div_body_content = "div.container.body-content>div#body_content";
 var ActiveMode = null;
 var UrlMode = null;
@@ -178,6 +195,18 @@ function OnDocumentLoad() {
                 //    location.replace("/?mode=Driver");
                 //    return;
                 //}
+                var isDriverTabActive = jQuery("div#tab2.tab");
+                //alert("res="+isDriverTabActive.html());
+                // мы находимся на водительской вкладке и показана информация о водителе
+                if (isDriverTabActive.length) {
+                    var driverPhoneNum = jQuery("div#tab2 p#drPhNum");
+                    var carType = jQuery("div#tab2 input#HiddenCarType");
+                    // если телефон или машина не определены - редирект - заполнить эти поля
+                    if ((driverPhoneNum.length && driverPhoneNum.text().trim() === "") || (carType.length && carType.val().trim() === "")) {
+                        getAjaxInfoPage({ url:"\\", param:"mode=Driver"});
+                    }
+                }
+                //return;
             }
         }
 

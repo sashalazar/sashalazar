@@ -84,7 +84,7 @@ namespace WebApplication2MVCAuthO.Controllers
             {
                 driver = new DriverModel();
             }
-            return View(driver);
+            return PartialView(driver);
         }
 
         [Authorize]
