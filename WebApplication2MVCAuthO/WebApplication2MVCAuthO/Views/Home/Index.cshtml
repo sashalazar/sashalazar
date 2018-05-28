@@ -25,23 +25,21 @@
                     пожалуйста, перейдите на вкладку "Я - водитель".
                 </p>
                 <label asp-for="PhoneNumber"></label>
-                <p style="display: inline">@Model?.PhoneNumber</p> <a class="btn btn-info btn-default external" style="padding-right: 8px; padding-left: 8px" asp-action="UserPhone" asp-route-returnUrl="@ViewBag.returnUrl">
+                <p style="display: inline">@Model?.PhoneNumber</p> <a class="btn btn-info btn-default" style="padding-right: 8px; padding-left: 8px" asp-action="UserPhone" asp-route-returnUrl="@ViewBag.returnUrl">
                     <img src="~/images/edit3.png" alt="Изменить номер" title="Изменить номер" height="15" width="20"/>
                 </a>
 
-                @*<form id="form0" asp-controller="api" asp-action="ClientRequest" method="post" novalidate="novalidate" >*@
                 <form id="form_add_client_request" method="post" novalidate="novalidate">
                     <div class="form-group">
-                        <input name="ClientRequestModel.Latitude" id="ClientRequestModel.Latitude" type="hidden" value="1111111"/>
-                        <input name="ClientRequestModel.Longitude" id="ClientRequestModel.Longitude" type="hidden" value="2222222"/>
-                        <input name="ClientRequestModel.UserId" id="ClientRequestModel.UserId" type="hidden" value="@Model.Id"/>
+                        <input name="ClientRequestModel.Latitude" id="ClientRequestModel.Latitude" type="hidden" value="1111111" />
+                        <input name="ClientRequestModel.Longitude" id="ClientRequestModel.Longitude" type="hidden" value="2222222" />
+                        <input name="ClientRequestModel.UserId" id="ClientRequestModel.UserId" type="hidden" value="@Model.Id" />
                     </div>
-                    <button type="submit" class="btn btn-info btn-default">Искать машину</button>
+                    @*<button type="submit" class="btn btn-info btn-default">Искать машину</button>*@
+                    <a class="btn btn-info btn-default" style="padding-right: 8px;  color:#fff" href="/carsListPage/" onclick="setTimeout(function() { jQuery('form#form_add_client_request').submit() }, 500);">
+                        Искать машину
+                    </a>
                 </form>
-
-                @*<a class="btn btn-info" asp-controller="" asp-action="ClientRequest" asp-route-returnUrl="@ViewBag.returnUrl">
-            Искать машину
-        </a>*@
             </div>
         </div>
     </div>
@@ -78,14 +76,16 @@
                         <p>@Driver?.DrLicense</p>
                         <label>Водительский стаж:</label>
                         <p>@Driver?.DrLFromDate</p>
-                        <a class="btn btn-info btn-default" style="padding-right: 8px" asp-action="EditInfo" asp-route-returnUrl="@ViewBag.returnUrl">
+                        <a class="btn btn-info btn-default" style="padding-right: 8px; color:#fff" asp-action="EditInfo" asp-route-returnUrl="@ViewBag.returnUrl">
                             Редактировать данные
                         </a>
-                        <button type="submit" class="btn btn-info btn-default">Начать таксовать</button>
-
-                        <input name="DriverLocationModel.Latitude" id="DriverLocationModel.Latitude" type="hidden" value="77777"/>
-                        <input name="DriverLocationModel.Longitude" id="DriverLocationModel.Longitude" type="hidden" value="88888"/>
-                        <input name="DriverLocationModel.UserId" id="DriverLocationModel.UserId" type="hidden" value="@Model.Id"/>
+                        @*<button type="submit" class="btn btn-info btn-default">But Начать таксовать</button>*@
+                        <a class="btn btn-info btn-default" style="padding-right: 8px;  color:#fff" href="/taxInfoPage/" onclick="setTimeout(function() { jQuery('form#form_add_driver_location').submit() }, 500);">                           
+                            Начать таксовать
+                        </a>
+                        <input name="DriverLocationModel.Latitude" id="DriverLocationModel.Latitude" type="hidden" value="77777" />
+                        <input name="DriverLocationModel.Longitude" id="DriverLocationModel.Longitude" type="hidden" value="88888" />
+                        <input name="DriverLocationModel.UserId" id="DriverLocationModel.UserId" type="hidden" value="@Model.Id" />
                     </div>
                 </form>
             </div>

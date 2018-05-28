@@ -10,22 +10,31 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="tabs_box" width="100%">
-    <div class="tab" id="tab1">
-        <p>
-            Редактировать номер телефона
-        </p>
-        <form asp-route-returnurl="@ViewData["ReturnUrl"]" method="post">
-            <div class="form-group">
-                <label asp-for="PhoneNumber"></label> +38(0xx)xxx-xxxx
-                <input asp-for="PhoneNumber" class="form-control phone"/>
-                <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+<br />
+<div class="page">
+    <div class="navbar">
+        <div class="navbar-inner sliding">
+            <div class="left">
+                <a href="#" class="link back">
+                    <i class="icon icon-back"></i>
+                    <span class="ios-only">Back</span>
+                </a>
             </div>
-            <a class="btn btn-info" asp-action="Index" asp-route-returnUrl="@ViewBag.returnUrl">
-                Отмена
-            </a>
-            <button type="submit" class="btn btn-info btn-default">Сохранить</button>
-        </form>
+            <div class="title">Редактировать номер телефона</div>
+        </div>
+    </div>
+    <div class="page-content">
+        <div class="block">
+
+                    <form asp-route-returnurl="@ViewData["ReturnUrl"]" method="post">
+                        <div class="form-group">
+                            <label asp-for="PhoneNumber"></label> +38(0xx)xxx-xxxx
+                            <input asp-for="PhoneNumber" class="form-control phone"/>
+                            <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                        </div>
+                        <button type="submit" class="btn btn-info btn-default">Сохранить</button>
+                    </form>
+
+        </div>
     </div>
 </div>
-

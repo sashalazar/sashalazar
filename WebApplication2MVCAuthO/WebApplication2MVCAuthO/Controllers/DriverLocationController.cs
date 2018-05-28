@@ -188,10 +188,19 @@ namespace WebApplication2MVCAuthO.Controllers
             driverLocationModel.InsDate = DateTime.Now;
             driverLocationModel.UpdDate = DateTime.Now;
 
-            _context.Add(driverLocationModel);
-            if (!string.IsNullOrEmpty(driverLocationModel.Id))
+            var driverLocationModelId = HttpContext.Session.GetString("DriverLocationModelId");
+            if (string.IsNullOrEmpty(driverLocationModelId))
             {
-                HttpContext.Session.SetString("DriverLocationModelId", driverLocationModel.Id);
+                _context.Add(driverLocationModel);
+                if (!string.IsNullOrEmpty(driverLocationModel.Id))
+                {
+                    HttpContext.Session.SetString("DriverLocationModelId", driverLocationModel.Id);
+                }
+            }
+            else
+            {
+                driverLocationModel.Id = driverLocationModelId;
+                //_context.Update(driverLocationModel);
             }
 
             await _context.SaveChangesAsync();

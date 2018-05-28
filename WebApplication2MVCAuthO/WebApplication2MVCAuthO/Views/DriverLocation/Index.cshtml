@@ -74,7 +74,13 @@
             <a id="cancelClientRequest" href="javascript:void(0)" class="btn btn-info btn-default"
                data-reqid="@clientRequestId" data-url="@Url.Action("Index", "Home")">Отмена</a>            
         </td>
-    </tr>
-    
+    </tr>  
+
     </tbody>
 </table>
+
+@{
+    <script>
+        var reqParams = { reqid: "@clientRequestId", url: "/" };
+    </script>
+}  

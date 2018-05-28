@@ -70,7 +70,9 @@ function driverGeoSuccess(position) {
             //id2 = data.id;
             //latitude2 = data.latitude;
             //longitude2 = data.longitude;
-            jQuery(div_body_content).html(data);
+            var jqStr = ".page.page-current div.container.body-content>div#body_content_taxInfoPage";
+            jQuery(jqStr).html(data);
+            //app.router.forward(app.router.getPageEl(data));
         }
     });
 }
@@ -86,7 +88,7 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
 }
 
 var request_count = 0;
-var max_request_count = 15;
+var max_request_count = 150000;
 var timerId = null;
 
 function getDriverLocationsTimeOut(requestId) {
@@ -117,7 +119,8 @@ function getDriverLocations(requestId) {
         contentType: "text/plain",
         method: "GET",
         success: function (driverList) {
-            jQuery(div_body_content).html(driverList);
+            var jqStr = ".page.page-current div.container.body-content>div#body_content_carsListPage";
+            jQuery(jqStr).html(driverList);
 
         }
     });
@@ -146,10 +149,6 @@ jQuery.urlParam = function (name) {
 }
 
 function getAjaxInfoPage(obj) {
-    //alert(jQuery(div_body_content).html());
-    //jQuery(div_body_content).html("<div>sasha</div>");
-    //alert(jQuery(div_body_content).html());
-
     jQuery.ajax({
         url: obj.url,
         data: obj.param,
@@ -190,13 +189,8 @@ function OnDocumentLoad() {
                 localStorage.setItem("ActiveMode", "Client");
             } else {
                 localStorage.setItem("ActiveMode", "Driver");
-                // todo -- Jquery Ajax instead of location.replace
-                //if (!data && (!UrlMode || UrlMode !== "Driver")) {
-                //    location.replace("/?mode=Driver");
-                //    return;
-                //}
+                
                 var isDriverTabActive = jQuery("div#tab2.tab");
-                //alert("res="+isDriverTabActive.html());
                 // мы находимся на водительской вкладке и показана информация о водителе
                 if (isDriverTabActive.length) {
                     var driverPhoneNum = jQuery("div#tab2 p#drPhNum");
@@ -262,47 +256,6 @@ function OnDocumentLoad() {
     var longitude2;
     var userid2;
 
-    jQuery("form#form_add_driver_location").submit(function (e) {
-        e.preventDefault();
-        GetDriverGeoLocation(this);
-    });
-
-
-    jQuery("form#form_add_client_request").submit(function (e) {
-        e.preventDefault();
-        GetClientGeoLocation(this);
-        //$.ajax({
-        //    url: "api/ClientRequest",
-        //    contentType: "application/json",
-        //    method: "POST",
-        //    data: JSON.stringify({
-        //        Latitude: this.elements["ClientRequestModel.Latitude"].value,
-        //        Longitude: this.elements["ClientRequestModel.Longitude"].value, 
-        //        User: { Id: this.elements["ClientRequestModel.UserId"].value }
-        //    }),
-        //    success: function(data) {
-        //        getDriverLocationsTimeOut(data.id);
-        //    }
-        //});
-    });
-
-    //update client request status to Closed
-    //and return to home index view
-    function closeClientRequest(data) {
-        jQuery.ajax({
-            url: `/api/ClientRequest/${data.reqid}`,
-            contentType: "application/json",
-            method: "PUT",
-            data: JSON.stringify({
-                Id: data.reqid,
-                Status:"Closed"
-            }),
-            success: function (result) {
-                document.location = data.url;
-            }
-        });
-    }
-
     //return from driver details page to the driver locations list
     //location - Views\DriverLocation\Details.cshtml
     jQuery('a#backToDrList').click(function (e) {              
@@ -360,6 +313,24 @@ function OnDocumentLoad() {
         
     }
 }
+
+jQuery("form#form_add_driver_location").submit(function (e) {
+    e.preventDefault();
+    GetDriverGeoLocation(this);
+});
+
+jQuery("form#form_add_client_request").submit(function (e) {
+    e.preventDefault();
+    GetClientGeoLocation(this);
+});
+
+//const element = document.querySelector('form#form_add_driver_location');
+//element.addEventListener('submit', event => {
+//    event.preventDefault();
+//    GetDriverGeoLocation(element);
+//    // actual logic, e.g. validate the form
+//    //console.log('Form submission cancelled.');
+//});
 
 function CreateOrder(param) {
     jQuery.ajax({
@@ -425,7 +396,8 @@ function updateDriverLocation(data, pos) {
             Longitude: pos.lng
         }),
         success: function (htmlResult) {
-            jQuery(div_body_content).html(htmlResult);
+            var jqStr = ".page.page-current div.container.body-content>div#body_content_taxInfoPage";
+            jQuery(jqStr).html(htmlResult);
         },
         error: function (response, q, t) {
             var r = jQuery.parseJSON(response.responseText);
@@ -435,4 +407,43 @@ function updateDriverLocation(data, pos) {
         var ppp = jqXHR.responseJSON.message;
     });
 
+}
+
+//update client request status to Closed
+//and return to home index view
+function closeClientRequest(data) {
+    jQuery.ajax({
+        url: `/api/ClientRequest/${data.reqid}`,
+        contentType: "application/json",
+        method: "PUT",
+        data: JSON.stringify({
+            Id: data.reqid,
+            Status: "Closed"
+        }),
+        success: function (result) {
+            //document.location = data.url;
+        }
+    });
+}
+
+function alertStopTaxing() {
+    app.dialog.alert('<h4>Работа такси остановлена!</h4>',
+        'Предупреждение',
+        function () {
+            params.status = "Closed";
+            clearTimeout(locTimerId);
+            UpdDriverGeoLocation(params);
+            locTimerId = null;
+        });
+}
+
+function alertStopClientRequest() {
+    alert(reqParams.reqid);
+    app.dialog.alert('<h4>Запрос на такси отменен!</h4>',
+        'Предупреждение',
+        function () {
+            clearTimeout(timerId);
+            closeClientRequest(reqParams);
+            timerId = null;
+        });
 }
