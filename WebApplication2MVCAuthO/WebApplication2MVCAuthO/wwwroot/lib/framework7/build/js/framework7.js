@@ -5194,7 +5194,7 @@
     },
     create: function create(c, extendContext) {
       if ( extendContext === void 0 ) extendContext = {};
-
+      //alert("3344");
       return new Framework7Component(c, extendContext);
     },
   };
@@ -9218,6 +9218,7 @@
       Utils.extend(app, {
         views: Utils.extend([], {
           create: function create(el, params) {
+          	//alert(el);
             return new View(app, el, params);
           },
           get: function get(viewEl) {

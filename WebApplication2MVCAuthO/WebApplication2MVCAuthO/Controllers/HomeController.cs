@@ -117,7 +117,7 @@ namespace WebApplication2MVCAuthO.Controllers
         [Authorize]
         public async Task<IActionResult> UserPhone()
         {
-            return View(await CurrentUser);
+            return PartialView(await CurrentUser);
         }
 
         [Authorize]

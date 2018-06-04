@@ -36,3 +36,17 @@ var app = new Framework7({
     buttonOk: '<font size="4">OK</font>'
   }
 });
+
+/*
+var mainView = app.views.create('.view-main', {
+  // These routes are only available in this view
+  routesAdd: [
+    {
+      path: '',
+      url: './Home/Index/',
+      history: true
+    }
+  ],
+});
+  */  
+

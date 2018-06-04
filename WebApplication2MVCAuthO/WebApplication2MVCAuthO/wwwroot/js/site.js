@@ -5,6 +5,19 @@ jQuery(document).ready(function () {
 
 jQuery(document).ajaxComplete(function () {
     OnDocumentLoad();
+
+
+    jQuery("form#form_add_client_request").unbind('submit');
+    jQuery("form#form_add_client_request").submit(function (e) {
+        e.preventDefault();
+        GetClientGeoLocation(this);
+    });
+
+    jQuery("form#form_add_driver_location").unbind('submit');
+    jQuery("form#form_add_driver_location").submit(function (e) {
+        e.preventDefault();
+        GetDriverGeoLocation(this);
+    });
 });
 
 
@@ -51,6 +64,8 @@ function clientGeoSuccess(position) {
     });
 }
 
+var pre;
+
 function driverGeoSuccess(position) {
     var pos = {
         lat: position.coords.latitude,
@@ -70,6 +85,7 @@ function driverGeoSuccess(position) {
             //id2 = data.id;
             //latitude2 = data.latitude;
             //longitude2 = data.longitude;
+            pre.close();
             var jqStr = ".page.page-current div.container.body-content>div#body_content_taxInfoPage";
             jQuery(jqStr).html(data);
             //app.router.forward(app.router.getPageEl(data));
@@ -119,6 +135,7 @@ function getDriverLocations(requestId) {
         contentType: "text/plain",
         method: "GET",
         success: function (driverList) {
+            app.dialog.close();
             var jqStr = ".page.page-current div.container.body-content>div#body_content_carsListPage";
             jQuery(jqStr).html(driverList);
 
@@ -314,11 +331,13 @@ function OnDocumentLoad() {
     }
 }
 
+jQuery("form#form_add_driver_location").unbind('submit');
 jQuery("form#form_add_driver_location").submit(function (e) {
     e.preventDefault();
     GetDriverGeoLocation(this);
 });
 
+jQuery("form#form_add_client_request").unbind('submit');
 jQuery("form#form_add_client_request").submit(function (e) {
     e.preventDefault();
     GetClientGeoLocation(this);
@@ -426,7 +445,13 @@ function closeClientRequest(data) {
     });
 }
 
-function alertStopTaxing() {
+
+
+function alertStopTaxing(){
+    setTimeout(alertStopTaxingRun, 0);
+}
+
+function alertStopTaxingRun() {
     app.dialog.alert('<h4>Работа такси остановлена!</h4>',
         'Предупреждение',
         function () {
@@ -437,9 +462,12 @@ function alertStopTaxing() {
         });
 }
 
-function alertStopClientRequest() {
-    alert(reqParams.reqid);
-    app.dialog.alert('<h4>Запрос на такси отменен!</h4>',
+function alertStopClientRequest(){
+    setTimeout(alertStopClientRequestRun, 0);
+}
+
+function alertStopClientRequestRun() {
+    app.dialog.alert('<h4>Запрос на поиск такси отменен!</h4>',
         'Предупреждение',
         function () {
             clearTimeout(timerId);

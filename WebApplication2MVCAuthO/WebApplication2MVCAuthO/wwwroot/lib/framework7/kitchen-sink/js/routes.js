@@ -1,9 +1,19 @@
-var routes = [   
+﻿var routes = [   
 // Edit driver info 
   {
     path: '/Home/EditInfo',
     url: './Home/EditInfo/',	
-	
+    on: {
+    	pageBeforeIn: function (event, page) {
+          // do something before page gets into the view
+          //app.dialog.preloader('Loading...');
+        },
+        pageAfterIn: function (event, page) {
+          // do something after page gets into the view
+          app.dialog.close();
+        }
+    },
+    
   },
    {
     path: '/Home/UserPhone',
@@ -23,7 +33,7 @@ var routes = [
                 <span class="ios-only">Back</span>\
               </a>\
             </div>\
-            <div class="title">My Taxi Info</div>\
+            <div class="title">My Taxi Information</div>\
           </div>\
         </div>\
         <div class="page-content">\
@@ -50,12 +60,12 @@ var routes = [
                 <span class="ios-only">Back</span>\
               </a>\
             </div>\
-            <div class="title">Cars List Info</div>\
+            <div class="title">Cars List Information</div>\
           </div>\
         </div>\
         <div class="page-content">\
           <div class="block">\
-            <p>This is a right panel page 1</p>\
+            <p></p>\
           </div>\
           <div class="container body-content">\
      		<div id="body_content_carsListPage"></div>\
@@ -63,11 +73,21 @@ var routes = [
         </div>\
       </div>\
     ',
+    on: {
+          pageBeforeIn: function(event, page) {
+              // do something before page gets into the view
+              //app.dialog.preloader('Подождите111...');
+          },
+          pageAfterIn: function(event, page) {
+              // do something after page gets into the view
+              //app.dialog.close();
+          }
+      }
   },
   // Index page
   {
     path: '/',
-    url: './index.html',
+    url: './Home/Index/',
     name: 'home',
   },
   // About page

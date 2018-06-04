@@ -19,11 +19,7 @@
     <div id="tab1" class="tab">
         <div>
             <div class="block-title"></div>
-            <div class="block" inner="">            
-                <p>Вы выбрали режим - Пассажир. <br/>
-                    Для регистрации в качестве водителя, <br/>
-                    пожалуйста, перейдите на вкладку "Я - водитель".
-                </p>
+            <div class="block" inner="">                           
                 <label asp-for="PhoneNumber"></label>
                 <p style="display: inline">@Model?.PhoneNumber</p> <a class="btn btn-info btn-default" style="padding-right: 8px; padding-left: 8px" asp-action="UserPhone" asp-route-returnUrl="@ViewBag.returnUrl">
                     <img src="~/images/edit3.png" alt="Изменить номер" title="Изменить номер" height="15" width="20"/>
@@ -36,7 +32,7 @@
                         <input name="ClientRequestModel.UserId" id="ClientRequestModel.UserId" type="hidden" value="@Model.Id" />
                     </div>
                     @*<button type="submit" class="btn btn-info btn-default">Искать машину</button>*@
-                    <a class="btn btn-info btn-default" style="padding-right: 8px;  color:#fff" href="/carsListPage/" onclick="setTimeout(function() { jQuery('form#form_add_client_request').submit() }, 500);">
+                    <a class="btn btn-info btn-default" style="padding-right: 8px;  color:#fff" href="/carsListPage/" onclick="app.dialog.preloader('Подождите...'); setTimeout(function() { jQuery('form#form_add_client_request').submit() }, 700);">
                         Искать машину
                     </a>
                 </form>
@@ -47,11 +43,6 @@
         <div>
             <div class="block-title"></div>
             <div class="block" inner="">
-                <p>
-                    Вы выбрали режим - Водитель. <br />
-                    Для регистрации в качестве пассажира, <br />
-                    пожалуйста, перейдите на вкладку "Я - пассажир".
-                </p>
                 <label asp-for="PhoneNumber"></label>
                 <p id="drPhNum" style="display: inline">@Model?.PhoneNumber</p> <a class="btn btn-info btn-default" style="padding-right: 8px;padding-left: 8px" asp-action="UserPhone" asp-route-returnUrl="@ViewBag.returnUrl">
                     <img src="~/images/edit3.png" alt="Изменить номер" title="Изменить номер" height="15" width="20" />
@@ -76,11 +67,11 @@
                         <p>@Driver?.DrLicense</p>
                         <label>Водительский стаж:</label>
                         <p>@Driver?.DrLFromDate</p>
-                        <a class="btn btn-info btn-default" style="padding-right: 8px; color:#fff" asp-action="EditInfo" asp-route-returnUrl="@ViewBag.returnUrl">
+                        <a class="btn btn-info btn-default" style="padding-right: 8px; color:#fff" asp-action="EditInfo" asp-route-returnUrl="@ViewBag.returnUrl" onclick="app.dialog.preloader('Подождите...');">
                             Редактировать данные
                         </a>
                         @*<button type="submit" class="btn btn-info btn-default">But Начать таксовать</button>*@
-                        <a class="btn btn-info btn-default" style="padding-right: 8px;  color:#fff" href="/taxInfoPage/" onclick="setTimeout(function() { jQuery('form#form_add_driver_location').submit() }, 500);">                           
+                        <a class="btn btn-info btn-default" style="padding-right: 8px;  color:#fff" href="/taxInfoPage/" onclick="pre = app.dialog.preloader('Подождите...'); setTimeout(function() { jQuery('form#form_add_driver_location').submit() }, 700);">                           
                             Начать таксовать
                         </a>
                         <input name="DriverLocationModel.Latitude" id="DriverLocationModel.Latitude" type="hidden" value="77777" />
