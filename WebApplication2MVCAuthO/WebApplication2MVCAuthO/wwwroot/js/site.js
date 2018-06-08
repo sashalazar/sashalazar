@@ -5,19 +5,6 @@ jQuery(document).ready(function () {
 
 jQuery(document).ajaxComplete(function () {
     OnDocumentLoad();
-
-
-    jQuery("form#form_add_client_request").unbind('submit');
-    jQuery("form#form_add_client_request").submit(function (e) {
-        e.preventDefault();
-        GetClientGeoLocation(this);
-    });
-
-    jQuery("form#form_add_driver_location").unbind('submit');
-    jQuery("form#form_add_driver_location").submit(function (e) {
-        e.preventDefault();
-        GetDriverGeoLocation(this);
-    });
 });
 
 
@@ -268,13 +255,22 @@ function OnDocumentLoad() {
             }
         });
 
-    var id2;
-    var latitude2;
-    var longitude2;
-    var userid2;
+
+    jQuery("form#form_add_client_request").unbind('submit');
+    jQuery("form#form_add_client_request").submit(function (e) {
+        e.preventDefault();
+        GetClientGeoLocation(this);
+    });
+
+    jQuery("form#form_add_driver_location").unbind('submit');
+    jQuery("form#form_add_driver_location").submit(function (e) {
+        e.preventDefault();
+        GetDriverGeoLocation(this);
+    });
 
     //return from driver details page to the driver locations list
     //location - Views\DriverLocation\Details.cshtml
+    jQuery("a#backToDrList").unbind('click');
     jQuery('a#backToDrList').click(function (e) {              
         var reqid = jQuery(this).attr("data-reqid");
         var url = jQuery(this).attr("data-url");
@@ -287,6 +283,7 @@ function OnDocumentLoad() {
 
     //cancel client request - return from driver list to client home page
     //location - Views\DriverLocation\Index.cshtml
+    jQuery("a#cancelClientRequest").unbind('click');
     jQuery('a#cancelClientRequest').click(function (e) {
         var reqid = jQuery(this).attr("data-reqid");
         var url = jQuery(this).attr("data-url");
@@ -298,6 +295,7 @@ function OnDocumentLoad() {
     });
 
     //cancel Driver Location - update driver location status to Closed
+    jQuery("a#updateDriverLocation").unbind('click');
     jQuery('a#updateDriverLocation').click(function (e) {
         var reqid = jQuery(this).attr("data-reqid");
         var status = jQuery(this).attr("data-status");
@@ -315,6 +313,7 @@ function OnDocumentLoad() {
 
     //create client order - returns confirmation + driver details 
     //location - Views\DriverLocation\Details.cshtml
+    jQuery("a#createOrder").unbind('click');
     jQuery('a#createOrder').click(function (e) {
         var reqid = jQuery(this).attr("data-reqid");
         var drlocid = jQuery(this).attr("data-drlocid");
@@ -330,18 +329,6 @@ function OnDocumentLoad() {
         
     }
 }
-
-jQuery("form#form_add_driver_location").unbind('submit');
-jQuery("form#form_add_driver_location").submit(function (e) {
-    e.preventDefault();
-    GetDriverGeoLocation(this);
-});
-
-jQuery("form#form_add_client_request").unbind('submit');
-jQuery("form#form_add_client_request").submit(function (e) {
-    e.preventDefault();
-    GetClientGeoLocation(this);
-});
 
 //const element = document.querySelector('form#form_add_driver_location');
 //element.addEventListener('submit', event => {
